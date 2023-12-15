@@ -1,8 +1,8 @@
-import time
 from turtle import Turtle
+
 X = -20
 Y = 0
-START_POSITION = [(0, Y), (X, Y), (X*2, Y)]
+START_POSITION = [(0, Y), (X, Y), (X * 2, Y)]
 MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
@@ -31,12 +31,20 @@ class Snake:
 
     def snake_extend(self):
         self.snake_increase(self.snakes[-1].position())
+
     def move(self):
         for seg in range(len(self.snakes) - 1, 0, -1):
             new_x = self.snakes[seg - 1].xcor()
             new_y = self.snakes[seg - 1].ycor()
             self.snakes[seg].goto(new_x, new_y)
         self.head.forward(MOVE_DISTANCE)
+
+    def snake_reset(self):
+        for snake in self.snakes:
+            snake.goto(1000, 1000)
+        self.snakes.clear()
+        self.snake_maker()
+        self.head = self.snakes[0]
 
     def up(self):
         if self.head.heading() != DOWN:
@@ -53,4 +61,3 @@ class Snake:
     def right(self):
         if self.head.heading() != RIGHT:
             self.head.setheading(RIGHT)
-
